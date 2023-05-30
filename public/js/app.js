@@ -52684,7 +52684,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n.form-group label[data-v-440dff1c] {\n  font-size: 0.8rem;\n  text-align: left;\n  display: block;\n  margin-bottom: 0.2rem;\n}\n", ""]);
+exports.push([module.i, "\n.form-group label[data-v-440dff1c] {\n  font-size: 0.8rem;\n  text-align: left;\n  display: block;\n  margin-bottom: 0.2rem;\n}\n.progress-bar[data-v-440dff1c] {\n  font-size: 1rem;\n}\n", ""]);
 
 // exports
 
@@ -52785,6 +52785,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -52797,7 +52806,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             loading: false,
             occupation_1: null,
             occupation_2: null,
-            match: null
+            match: null,
+            error_msg: null
+        };
+    },
+    created: function created() {
+        this.MATCH = {
+            GOOD: 80,
+            OK: 50
         };
     },
 
@@ -52812,9 +52828,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }).then(function (response) {
                 _this.loading = false;
                 _this.match = response.data.match;
-            }).catch(function () {
+            }).catch(function (error) {
+                if (error.response) {
+                    _this.error_msg = error.response.data.message;
+                }
+                _this.match = null;
                 _this.loading = false;
             });
+        },
+        percentageClass: function percentageClass() {
+            if (this.match >= this.MATCH.GOOD) {
+                return 'bg-success';
+            } else if (this.match >= this.MATCH.OK) {
+                return 'bg-info';
+            }
+            return 'bg-warning';
         }
     }
 });
@@ -53924,7 +53952,45 @@ var render = function() {
         _vm.match && !_vm.loading
           ? [
               _c("div", { staticClass: "col-12 text-center" }, [
-                _c("h1", [_vm._v(_vm._s(_vm.match) + "%")])
+                _c(
+                  "div",
+                  { staticClass: "progress", staticStyle: { height: "30px" } },
+                  [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "progress-bar",
+                        class: _vm.percentageClass(),
+                        style: { width: _vm.match + "%" },
+                        attrs: {
+                          "aria-valuenow": _vm.match,
+                          "aria-valuemin": "0",
+                          "aria-valuemax": "100"
+                        }
+                      },
+                      [_vm._v(_vm._s(_vm.match) + "%")]
+                    )
+                  ]
+                )
+              ])
+            ]
+          : !_vm.match && !_vm.loading && _vm.error_msg
+          ? [
+              _c("div", { staticClass: "col-12 text-center" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass: "alert alert-danger",
+                    attrs: { role: "alert" }
+                  },
+                  [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(_vm.error_msg) +
+                        "\n                "
+                    )
+                  ]
+                )
               ])
             ]
           : !_vm.match && !_vm.loading

@@ -29,8 +29,17 @@
         <div class="row">
             <template v-if="match && !loading">
             <div class="col-12 text-center">
-                <h1>{{ match }}%</h1>
+                <div class="progress" style="height: 30px;">
+                    <div class="progress-bar" :class="percentageClass()" :style="{width: match+'%'}" :aria-valuenow="match" aria-valuemin="0" aria-valuemax="100">{{ match }}%</div>
+                </div>
             </div>
+            </template>
+            <template v-else-if="!match && !loading && error_msg">
+                <div class="col-12 text-center">
+                    <div class="alert alert-danger" role="alert">
+                        {{ error_msg }}
+                    </div>
+                </div>
             </template>
             <template v-else-if="!match && !loading">
                 <div class="col-12 text-center">
@@ -65,8 +74,15 @@
                 loading: false,
                 occupation_1: null,
                 occupation_2: null,
-                match: null
+                match: null,
+                error_msg: null,
             }
+        },
+        created() {
+            this.MATCH = {
+                GOOD: 80,
+                OK: 50,
+            };
         },
         methods: {
             compare() {
@@ -77,9 +93,21 @@
                 }).then((response) => {
                     this.loading = false;
                     this.match = response.data.match;
-                }).catch(() => {
+                }).catch((error) => {
+                    if (error.response) {
+                        this.error_msg = error.response.data.message;
+                    }
+                    this.match = null;
                     this.loading = false;
                 });
+            },
+            percentageClass() {
+                if (this.match >= this.MATCH.GOOD) {
+                    return 'bg-success'
+                } else if (this.match >= this.MATCH.OK) {
+                    return 'bg-info';
+                }
+                return 'bg-warning';
             }
         }
     }
@@ -93,5 +121,9 @@
             display: block;
             margin-bottom: 0.2rem
         }
+    }
+
+    .progress-bar {
+        font-size: 1rem;
     }
 </style>
