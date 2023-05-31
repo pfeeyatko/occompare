@@ -52684,7 +52684,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n.form-group label[data-v-440dff1c] {\n  font-size: 0.8rem;\n  text-align: left;\n  display: block;\n  margin-bottom: 0.2rem;\n}\n.progress-bar[data-v-440dff1c] {\n  font-size: 1rem;\n}\n", ""]);
+exports.push([module.i, "\n.form-group label[data-v-440dff1c] {\n  font-size: 0.8rem;\n  text-align: left;\n  display: block;\n  margin-bottom: 0.2rem;\n}\n.progress[data-v-440dff1c] {\n  height: 30px;\n}\n.progress .progress-bar[data-v-440dff1c] {\n    font-size: 1rem;\n}\n", ""]);
 
 // exports
 
@@ -53952,26 +53952,22 @@ var render = function() {
         _vm.match && !_vm.loading
           ? [
               _c("div", { staticClass: "col-12 text-center" }, [
-                _c(
-                  "div",
-                  { staticClass: "progress", staticStyle: { height: "30px" } },
-                  [
-                    _c(
-                      "div",
-                      {
-                        staticClass: "progress-bar",
-                        class: _vm.percentageClass(),
-                        style: { width: _vm.match + "%" },
-                        attrs: {
-                          "aria-valuenow": _vm.match,
-                          "aria-valuemin": "0",
-                          "aria-valuemax": "100"
-                        }
-                      },
-                      [_vm._v(_vm._s(_vm.match) + "%")]
-                    )
-                  ]
-                )
+                _c("div", { staticClass: "progress" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass: "progress-bar",
+                      class: _vm.percentageClass(),
+                      style: { width: _vm.match + "%" },
+                      attrs: {
+                        "aria-valuenow": _vm.match,
+                        "aria-valuemin": "0",
+                        "aria-valuemax": "100"
+                      }
+                    },
+                    [_vm._v(_vm._s(_vm.match) + "%")]
+                  )
+                ])
               ])
             ]
           : !_vm.match && !_vm.loading && _vm.error_msg

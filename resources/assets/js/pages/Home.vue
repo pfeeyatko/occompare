@@ -29,7 +29,7 @@
         <div class="row">
             <template v-if="match && !loading">
             <div class="col-12 text-center">
-                <div class="progress" style="height: 30px;">
+                <div class="progress">
                     <div class="progress-bar" :class="percentageClass()" :style="{width: match+'%'}" :aria-valuenow="match" aria-valuemin="0" aria-valuemax="100">{{ match }}%</div>
                 </div>
             </div>
@@ -123,7 +123,11 @@
         }
     }
 
-    .progress-bar {
-        font-size: 1rem;
+    .progress {
+        height: 30px;
+
+        .progress-bar {
+            font-size: 1rem;
+        }
     }
 </style>
