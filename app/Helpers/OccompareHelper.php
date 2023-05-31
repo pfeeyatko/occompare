@@ -4,6 +4,8 @@ namespace App\Helpers;
 
 class OccompareHelper
 {
+    const TOP_SKILLS_LIMIT = 10;
+
     public static function compareBySkillName($a, $b) 
     {
         return strcmp($a[1], $b[1]);

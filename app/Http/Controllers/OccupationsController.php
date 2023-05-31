@@ -57,22 +57,22 @@ class OccupationsController extends BaseController
         usort($occupation_1, ['App\Helpers\OccompareHelper', 'compareByImportance']);
         usort($occupation_2, ['App\Helpers\OccompareHelper', 'compareByImportance']);
 
-        // take top ten skills by importance from each occupation
-        $occupation_1_top_10 = array_map(function ($object) {
+        // take top skills by importance from each occupation
+        $occupation_1_top = array_map(function ($object) {
             return $object[1];
-        }, array_slice($occupation_1, -10, 10, true));
+        }, array_slice($occupation_1, -OccompareHelper::TOP_SKILLS_LIMIT, OccompareHelper::TOP_SKILLS_LIMIT, true));
 
-        $occupation_2_top_10 = array_map(function ($object) {
+        $occupation_2_top = array_map(function ($object) {
             return $object[1];
-        }, array_slice($occupation_2, -10, 10, true));
+        }, array_slice($occupation_2, -OccompareHelper::TOP_SKILLS_LIMIT, OccompareHelper::TOP_SKILLS_LIMIT, true));
 
         // find which top skills intersect
-        $skillIntersect = array_intersect($occupation_1_top_10, $occupation_2_top_10);
+        $skillIntersect = array_intersect($occupation_1_top, $occupation_2_top);
 
         // find the percentage of top skills which intersect
-        $skillIntersectPercent = count($skillIntersect) / 10 * 100;
+        $skillIntersectPercent = count($skillIntersect) / OccompareHelper::TOP_SKILLS_LIMIT * 100;
 
-        // avg skills similarity and skills intersect values
+        // find the avg of skills similarity and skills intersect values
         $match = round(($skillSimilarityPercent + $skillIntersectPercent) / 2);
 
         /** IMPLEMENT COMPARISON **/
