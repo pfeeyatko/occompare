@@ -52684,7 +52684,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n.form-group label[data-v-440dff1c] {\n  font-size: 0.8rem;\n  text-align: left;\n  display: block;\n  margin-bottom: 0.2rem;\n}\n.progress[data-v-440dff1c] {\n  height: 30px;\n}\n.progress .progress-bar[data-v-440dff1c] {\n    font-size: 1rem;\n}\n", ""]);
+exports.push([module.i, "\n.form-group label[data-v-440dff1c] {\n  font-size: 0.8rem;\n  text-align: left;\n  display: block;\n  margin-bottom: 0.2rem;\n}\n.progress[data-v-440dff1c] {\n  height: 30px;\n}\n.progress .progress-bar[data-v-440dff1c] {\n    font-size: 1rem;\n}\n.skill-intersect[data-v-440dff1c] {\n  margin-top: 25px;\n}\n", ""]);
 
 // exports
 
@@ -52794,6 +52794,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -52807,6 +52815,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             occupation_1: null,
             occupation_2: null,
             match: null,
+            skills_intersect: null,
             error_msg: null
         };
     },
@@ -52828,12 +52837,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }).then(function (response) {
                 _this.loading = false;
                 _this.match = response.data.match;
+                _this.skills_intersect = response.data.skills_intersect;
             }).catch(function (error) {
                 if (error.response) {
                     _this.error_msg = error.response.data.message;
                 }
                 _this.match = null;
                 _this.loading = false;
+                _this.skills_intersect = null;
             });
         },
         percentageClass: function percentageClass() {
@@ -53869,147 +53880,183 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container py-3" }, [
-    _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-12 text-center" }, [
-        _c("div", { staticClass: "form" }, [
-          _c("div", { staticClass: "form-group row" }, [
-            _c(
-              "div",
-              { staticClass: "col-md-5" },
-              [
-                _c("label", [_vm._v("Occupation 1")]),
-                _vm._v(" "),
-                _c("select-occupation", {
-                  model: {
-                    value: _vm.occupation_1,
-                    callback: function($$v) {
-                      _vm.occupation_1 = $$v
-                    },
-                    expression: "occupation_1"
-                  }
-                })
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "col-md-5" },
-              [
-                _c("label", [_vm._v("Occupation 2")]),
-                _vm._v(" "),
-                _c("select-occupation", {
-                  model: {
-                    value: _vm.occupation_2,
-                    callback: function($$v) {
-                      _vm.occupation_2 = $$v
-                    },
-                    expression: "occupation_2"
-                  }
-                })
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md-2" }, [
+  return _c(
+    "div",
+    { staticClass: "container py-3" },
+    [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-12 text-center" }, [
+          _c("div", { staticClass: "form" }, [
+            _c("div", { staticClass: "form-group row" }, [
               _c(
-                "button",
-                {
-                  staticClass: "btn btn-danger btn-block mt-4",
-                  attrs: {
-                    disabled:
-                      !_vm.occupation_1 || !_vm.occupation_2 || _vm.loading
-                  },
-                  on: {
-                    click: function($event) {
-                      $event.preventDefault()
-                      return _vm.compare.apply(null, arguments)
-                    }
-                  }
-                },
+                "div",
+                { staticClass: "col-md-5" },
                 [
-                  _vm.loading
-                    ? [_c("i", { staticClass: "fa fa-refresh fa-spin" })]
-                    : [
-                        _vm._v(
-                          "\n                                Compare\n                            "
-                        )
-                      ]
+                  _c("label", [_vm._v("Occupation 1")]),
+                  _vm._v(" "),
+                  _c("select-occupation", {
+                    model: {
+                      value: _vm.occupation_1,
+                      callback: function($$v) {
+                        _vm.occupation_1 = $$v
+                      },
+                      expression: "occupation_1"
+                    }
+                  })
                 ],
-                2
-              )
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "col-md-5" },
+                [
+                  _c("label", [_vm._v("Occupation 2")]),
+                  _vm._v(" "),
+                  _c("select-occupation", {
+                    model: {
+                      value: _vm.occupation_2,
+                      callback: function($$v) {
+                        _vm.occupation_2 = $$v
+                      },
+                      expression: "occupation_2"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-2" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-danger btn-block mt-4",
+                    attrs: {
+                      disabled:
+                        !_vm.occupation_1 || !_vm.occupation_2 || _vm.loading
+                    },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.compare.apply(null, arguments)
+                      }
+                    }
+                  },
+                  [
+                    _vm.loading
+                      ? [_c("i", { staticClass: "fa fa-refresh fa-spin" })]
+                      : [
+                          _vm._v(
+                            "\n                                Compare\n                            "
+                          )
+                        ]
+                  ],
+                  2
+                )
+              ])
             ])
           ])
         ])
-      ])
-    ]),
-    _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "row" },
-      [
-        _vm.match && !_vm.loading
-          ? [
-              _c("div", { staticClass: "col-12 text-center" }, [
-                _c("div", { staticClass: "progress" }, [
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "row" },
+        [
+          _vm.match && !_vm.loading
+            ? [
+                _c("div", { staticClass: "col-12 text-center" }, [
+                  _c("div", { staticClass: "progress" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "progress-bar",
+                        class: _vm.percentageClass(),
+                        style: { width: _vm.match + "%" },
+                        attrs: {
+                          "aria-valuenow": _vm.match,
+                          "aria-valuemin": "0",
+                          "aria-valuemax": "100"
+                        }
+                      },
+                      [_vm._v(_vm._s(_vm.match) + "%")]
+                    )
+                  ])
+                ])
+              ]
+            : !_vm.match && !_vm.loading && _vm.error_msg
+            ? [
+                _c("div", { staticClass: "col-12 text-center" }, [
                   _c(
                     "div",
                     {
-                      staticClass: "progress-bar",
-                      class: _vm.percentageClass(),
-                      style: { width: _vm.match + "%" },
-                      attrs: {
-                        "aria-valuenow": _vm.match,
-                        "aria-valuemin": "0",
-                        "aria-valuemax": "100"
-                      }
+                      staticClass: "alert alert-danger",
+                      attrs: { role: "alert" }
                     },
-                    [_vm._v(_vm._s(_vm.match) + "%")]
+                    [
+                      _vm._v(
+                        "\n                    " +
+                          _vm._s(_vm.error_msg) +
+                          "\n                "
+                      )
+                    ]
                   )
                 ])
-              ])
-            ]
-          : !_vm.match && !_vm.loading && _vm.error_msg
-          ? [
-              _c("div", { staticClass: "col-12 text-center" }, [
-                _c(
-                  "div",
-                  {
-                    staticClass: "alert alert-danger",
-                    attrs: { role: "alert" }
-                  },
-                  [
-                    _vm._v(
-                      "\n                    " +
-                        _vm._s(_vm.error_msg) +
-                        "\n                "
-                    )
-                  ]
-                )
-              ])
-            ]
-          : !_vm.match && !_vm.loading
-          ? [
-              _c("div", { staticClass: "col-12 text-center" }, [
-                _vm._v(
-                  "\n                Please select two Occupations from above and click Compare\n            "
-                )
-              ])
-            ]
-          : _vm.loading
-          ? [
-              _c("div", { staticClass: "col-12 text-center" }, [
-                _vm._v("\n                Please wait...\n            ")
-              ])
-            ]
-          : _vm._e()
-      ],
-      2
-    )
-  ])
+              ]
+            : !_vm.match && !_vm.loading
+            ? [
+                _c("div", { staticClass: "col-12 text-center" }, [
+                  _vm._v(
+                    "\n                Please select two Occupations from above and click Compare\n            "
+                  )
+                ])
+              ]
+            : _vm.loading
+            ? [
+                _c("div", { staticClass: "col-12 text-center" }, [
+                  _vm._v("\n                Please wait...\n            ")
+                ])
+              ]
+            : _vm._e()
+        ],
+        2
+      ),
+      _vm._v(" "),
+      _vm.skills_intersect && !_vm.loading
+        ? [
+            _c("div", { staticClass: "skill-intersect" }, [
+              _vm._m(0),
+              _vm._v(" "),
+              _c(
+                "ol",
+                { staticClass: "list-group list-group-numbered" },
+                _vm._l(_vm.skills_intersect, function(skill, index) {
+                  return _c(
+                    "li",
+                    { key: index, staticClass: "list-group-item" },
+                    [_vm._v(_vm._s(index + 1) + ". " + _vm._s(skill))]
+                  )
+                }),
+                0
+              )
+            ])
+          ]
+        : _vm._e()
+    ],
+    2
+  )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("h3", [
+      _vm._v("Skills which intersect "),
+      _c("small", [_vm._v("(ordered by importance)")])
+    ])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {

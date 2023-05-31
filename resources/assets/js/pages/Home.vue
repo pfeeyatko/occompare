@@ -28,11 +28,11 @@
         </div>
         <div class="row">
             <template v-if="match && !loading">
-            <div class="col-12 text-center">
-                <div class="progress">
-                    <div class="progress-bar" :class="percentageClass()" :style="{width: match+'%'}" :aria-valuenow="match" aria-valuemin="0" aria-valuemax="100">{{ match }}%</div>
+                <div class="col-12 text-center">
+                    <div class="progress">
+                        <div class="progress-bar" :class="percentageClass()" :style="{width: match+'%'}" :aria-valuenow="match" aria-valuemin="0" aria-valuemax="100">{{ match }}%</div>
+                    </div>
                 </div>
-            </div>
             </template>
             <template v-else-if="!match && !loading && error_msg">
                 <div class="col-12 text-center">
@@ -56,6 +56,14 @@
         <!---->
         <!---->
         <!--  Use this space to visualise and present the result/breakdown or whatever you see fit  -->
+        <template v-if="skills_intersect && !loading">
+            <div class="skill-intersect">
+                <h3>Skills which intersect <small>(ordered by importance)</small></h3>
+                <ol class="list-group list-group-numbered">
+                    <li class="list-group-item" v-for="(skill, index) in skills_intersect" :key="index">{{ index + 1 }}. {{ skill }}</li>
+                </ol>
+            </div>
+        </template>
         <!---->
         <!---->
 
@@ -75,6 +83,7 @@
                 occupation_1: null,
                 occupation_2: null,
                 match: null,
+                skills_intersect: null,
                 error_msg: null,
             }
         },
@@ -93,12 +102,14 @@
                 }).then((response) => {
                     this.loading = false;
                     this.match = response.data.match;
+                    this.skills_intersect = response.data.skills_intersect;
                 }).catch((error) => {
                     if (error.response) {
                         this.error_msg = error.response.data.message;
                     }
                     this.match = null;
                     this.loading = false;
+                    this.skills_intersect = null;
                 });
             },
             percentageClass() {
@@ -129,5 +140,9 @@
         .progress-bar {
             font-size: 1rem;
         }
+    }
+
+    .skill-intersect {
+        margin-top: 25px;
     }
 </style>
