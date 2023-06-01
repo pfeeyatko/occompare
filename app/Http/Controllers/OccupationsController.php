@@ -42,7 +42,7 @@ class OccupationsController extends BaseController
 
         // iterate through the skills in each occupation
         // compare "importance" to find a value for similarity 
-        for ($i = 0; $i < sizeof($occupation_1); $i++) {
+        for ($i = 0; $i < count($occupation_1); $i++) {
             if ($occupation_1[$i][0] == 0 && $occupation_2[$i][0] == 0) {
                 array_push($skillsComparisonList, 100);
             } else {
