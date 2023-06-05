@@ -52802,6 +52802,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -53965,7 +53966,9 @@ var render = function() {
         [
           _vm.match && !_vm.loading
             ? [
-                _c("div", { staticClass: "col-12 text-center" }, [
+                _c("div", { staticClass: "col-12" }, [
+                  _c("h3", [_vm._v("Match percentage:")]),
+                  _vm._v(" "),
                   _c("div", { staticClass: "progress" }, [
                     _c(
                       "div",
@@ -54053,7 +54056,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("h3", [
       _vm._v("Skills which intersect "),
-      _c("small", [_vm._v("(ordered by importance)")])
+      _c("small", [_vm._v("(ordered by importance):")])
     ])
   }
 ]
