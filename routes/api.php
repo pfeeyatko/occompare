@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Middleware\ResponseCache;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -13,5 +15,5 @@
 
 Route::middleware(['api'])->group(function () {
     Route::get('/occupations', 'OccupationsController@index');
-    Route::post('/compare', 'OccupationsController@compare');
+    Route::post('/compare', 'OccupationsController@compare')->middleware(ResponseCache::class);
 });
